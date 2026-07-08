@@ -75,3 +75,8 @@ border:none;
 border-radius:10px;
 cursor:pointer;
     }
+
+button:last-child{
+background:#ff9800;
+margin-left:8px;
+}
