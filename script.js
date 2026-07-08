@@ -30,4 +30,29 @@ input.value="";
 
 chat.scrollTop=chat.scrollHeight;
 
-    
+
+
+function startVoice(){
+
+if (!('webkitSpeechRecognition' in window)){
+
+alert("Voice input is not supported on this browser.");
+
+return;
+
+}
+
+const recognition = new webkitSpeechRecognition();
+
+recognition.lang = "ur-PK";
+
+recognition.start();
+
+recognition.onresult = function(event){
+
+document.getElementById("message").value =
+event.results[0][0].transcript;
+
+};
+
+    }
