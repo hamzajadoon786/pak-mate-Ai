@@ -1,15 +1,33 @@
-function sendMessage() {
-    let input = document.getElementById("userInput");
-    let chatBox = document.getElementById("chatBox");
+function sendMessage(){
 
-    if (input.value.trim() === "") return;
+let input=document.getElementById("message");
 
-    let msg = document.createElement("div");
-    msg.className = "message";
-    msg.innerText = "👤 " + input.value;
+let text=input.value.trim();
 
-    chatBox.appendChild(msg);
+if(text==="") return;
 
-    input.value = "";
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
+let chat=document.getElementById("chat");
+
+chat.innerHTML+=`
+<div class="user">${text}</div>
+`;
+
+setTimeout(function(){
+
+chat.innerHTML+=`
+<div class="bot">
+Abhi AI connect nahi hai.
+
+Jald hi ChatGPT API add hogi 😊
+</div>
+`;
+
+chat.scrollTop=chat.scrollHeight;
+
+},700);
+
+input.value="";
+
+chat.scrollTop=chat.scrollHeight;
+
+    
