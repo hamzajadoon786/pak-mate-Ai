@@ -610,46 +610,4 @@ header{
         width:100%;
     }
    }
-@media (max-width:768px){
 
-    .container{
-        display:block;
-    }
-
-    .sidebar{
-        left:-280px;
-    }
-
-    .sidebar.active{
-        left:0;
-    }
-}
-@media (max-width:768px){
-
-  #menuBtn{
-    display:block;
-    position:fixed;
-    top:18px;
-    left:18px;
-    z-index:1001;
-  }
-
-  .sidebar{
-    position:fixed;
-    left:-280px;
-    top:0;
-    width:280px;
-    height:100vh;
-    transition:0.3s;
-    z-index:1000;
-  }
-
-  .sidebar.active{
-    left:0;
-  }
-
-  .main{
-    width:100%;
-    margin-left:0;
-  }
-   }
