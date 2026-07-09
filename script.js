@@ -1,333 +1,353 @@
-/* =====================================
+/* ==========================================
    PakMate AI
-   script.js - Part 1
-===================================== */
+   script.js
+   Part 1
+========================================== */
 
 const chatBox = document.getElementById("chatBox");
 const userInput = document.getElementById("userInput");
 const sendBtn = document.getElementById("sendBtn");
 const voiceBtn = document.getElementById("voiceBtn");
-const newChat = document.getElementById("newChat");
+const newChatBtn = document.getElementById("newChat");
 
 /* Current Time */
 
-function getTime(){
+function getTime() {
 
-const now = new Date();
+    const now = new Date();
 
-let hour = now.getHours();
-let minute = now.getMinutes();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
 
-minute = minute < 10 ? "0" + minute : minute;
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
 
-return hour + ":" + minute;
+    return hours + ":" + minutes;
 
 }
 
 /* Save Chat */
 
-function saveChat(){
+function saveChat() {
 
-localStorage.setItem(
-"pakmate_chat",
-chatBox.innerHTML
-);
+    localStorage.setItem(
+        "pakmate_chat",
+        chatBox.innerHTML
+    );
 
 }
 
 /* Load Chat */
 
-function loadChat(){
+function loadChat() {
 
-const saved = localStorage.getItem("pakmate_chat");
+    const data = localStorage.getItem("pakmate_chat");
 
-if(saved){
+    if (data) {
 
-chatBox.innerHTML = saved;
+        chatBox.innerHTML = data;
 
-}
+    }
 
 }
 
 loadChat();
 
-/* Add User Message */
+/* Scroll Bottom */
 
-function addUserMessage(text){
+function scrollBottom() {
 
-chatBox.innerHTML += `
+    chatBox.scrollTop = chatBox.scrollHeight;
 
-<div class="message user">
+}
+/* ==========================================
+   PakMate AI
+   script.js
+   Part 2
+========================================== */
 
-<div class="icon">
+/* User Message */
 
-<i class="fa-solid fa-user"></i>
+function addUserMessage(message) {
 
-</div>
+    chatBox.innerHTML += `
 
-<div class="text">
+    <div class="message user">
 
-<h3>You</h3>
+        <div class="icon">
+            <i class="fa-solid fa-user"></i>
+        </div>
 
-<p>${text}</p>
+        <div class="text">
 
-<span>${getTime()}</span>
+            <h3>You</h3>
 
-</div>
+            <p>${message}</p>
 
-</div>
+            <span>${getTime()}</span>
 
-`;
+        </div>
 
-chatBox.scrollTop = chatBox.scrollHeight;
+    </div>
 
-saveChat();
+    `;
+
+    scrollBottom();
+
+    saveChat();
 
 }
 
 /* Typing Animation */
 
-function showTyping(){
+function showTyping() {
 
-chatBox.innerHTML += `
+    chatBox.innerHTML += `
 
-<div class="message ai" id="typingBox">
+    <div class="message ai" id="typingBox">
 
-<div class="icon">
+        <div class="icon">
+            <i class="fa-solid fa-robot"></i>
+        </div>
 
-<i class="fa-solid fa-robot"></i>
+        <div class="text">
 
-</div>
+            <h3>PakMate AI</h3>
 
-<div class="text">
+            <div class="typing">
 
-<h3>PakMate AI</h3>
+                <span></span>
+                <span></span>
+                <span></span>
 
-<div class="typing">
+            </div>
 
-<span></span>
+        </div>
 
-<span></span>
+    </div>
 
-<span></span>
+    `;
 
-</div>
-
-</div>
-
-</div>
-
-`;
-
-chatBox.scrollTop = chatBox.scrollHeight;
+    scrollBottom();
 
 }
-/* =====================================
+/* ==========================================
    PakMate AI
-   script.js - Part 2
-===================================== */
+   script.js
+   Part 3
+========================================== */
 
 /* AI Reply */
 
-function aiReply(userText){
+function addAIMessage(message) {
 
-const replies = [
+    const typingBox = document.getElementById("typingBox");
 
-"Assalam-o-Alaikum! Main PakMate AI hoon.",
+    if (typingBox) {
+        typingBox.remove();
+    }
 
-"Main aap ki madad ke liye hamesha tayyar hoon.",
+    chatBox.innerHTML += `
 
-"Yeh feature abhi development mein hai.",
+    <div class="message ai">
 
-"Shukriya! Aap ka message receive ho gaya.",
+        <div class="icon">
+            <i class="fa-solid fa-robot"></i>
+        </div>
 
-"Is sawal ka behtar jawab agli update mein dunga."
+        <div class="text">
 
-];
+            <h3>PakMate AI</h3>
 
-const randomReply =
-replies[Math.floor(Math.random()*replies.length)];
+            <p>${message}</p>
 
-setTimeout(()=>{
+            <span>${getTime()}</span>
 
-const typing =
-document.getElementById("typingBox");
+        </div>
 
-if(typing){
+    </div>
 
-typing.remove();
+    `;
+
+    scrollBottom();
+
+    saveChat();
 
 }
 
-chatBox.innerHTML += `
+/* Send Message */
 
-<div class="message ai">
+function sendMessage() {
 
-<div class="icon">
+    const text = userInput.value.trim();
 
-<i class="fa-solid fa-robot"></i>
+    if (text === "") return;
 
-</div>
+    addUserMessage(text);
 
-<div class="text">
+    userInput.value = "";
 
-<h3>PakMate AI</h3>
+    showTyping();
 
-<p>${randomReply}</p>
+    setTimeout(() => {
 
-<span>${getTime()}</span
-/* =====================================
-   PakMate AI
-   script.js - Part 3
-===================================== */
+        addAIMessage("Main PakMate AI hoon. Real AI response agli update mein API connect hone ke baad aayega.");
 
-/* =========================
-   Voice Recognition
-========================= */
+    }, 1500);
 
-if ('webkitSpeechRecognition' in window) {
+}
 
-const recognition = new webkitSpeechRecognition();
+/* Button */
 
-recognition.lang = "en-US";
-recognition.continuous = false;
-recognition.interimResults = false;
+sendBtn.addEventListener("click", sendMessage);
 
-voiceBtn.addEventListener("click", () => {
+/* Enter Key */
 
-recognition.start();
+userInput.addEventListener("keydown", function(e){
 
-voiceBtn.innerHTML =
-'<i class="fa-solid fa-microphone-lines"></i>';
+    if(e.key === "Enter"){
+
+        sendMessage();
+
+    }
 
 });
+/* ==========================================
+   PakMate AI
+   script.js
+   Part 4
+========================================== */
 
-recognition.onresult = (event) => {
+/* Voice Recognition */
 
-const text = event.results[0][0].transcript;
+if ("webkitSpeechRecognition" in window) {
 
-userInput.value = text;
+    const recognition = new webkitSpeechRecognition();
 
-voiceBtn.innerHTML =
-'<i class="fa-solid fa-microphone"></i>';
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+    recognition.interimResults = false;
 
-};
+    voiceBtn.addEventListener("click", () => {
 
-recognition.onend = () => {
+        recognition.start();
 
-voiceBtn.innerHTML =
-'<i class="fa-solid fa-microphone"></i>';
+    });
 
-};
+    recognition.onresult = (event) => {
+
+        const text = event.results[0][0].transcript;
+
+        userInput.value = text;
+
+    };
 
 }
 
-/* =========================
-   New Chat
-========================= */
-newChat.addEventListener("click", () => {
+/* New Chat */
+
+newChatBtn.addEventListener("click", () => {
 
     if (confirm("Start a new chat?")) {
 
         localStorage.removeItem("pakmate_chat");
 
-        chatBox.innerHTML = `
-
-<div class="message ai">
-
-<div class="icon">
-<i class="fa-solid fa-robot"></i>
-</div>
-
-<div class="text">
-
-<h3>PakMate AI</h3>
-
-<p>
-👋 Assalam-o-Alaikum!
-
-Main PakMate AI hoon.
-
-Aaj main aap ki kis tarah madad kar sakta hoon?
-</p>
-
-<span>${getTime()}</span>
-
-</div>
-
-</div>
-
-`;
-
-        saveChat();
+        location.reload();
 
     }
 
 });
-/* =====================================
+/* ==========================================
    PakMate AI
-   script.js - Part 4 (Final)
-===================================== */
+   script.js
+   Part 5
+========================================== */
 
 /* Copy Message */
 
-chatBox.addEventListener("dblclick", function(e){
+chatBox.addEventListener("dblclick", function (e) {
 
-const msg = e.target.closest(".text");
+    const textBox = e.target.closest(".text");
 
-if(!msg) return;
+    if (!textBox) return;
 
-const text = msg.querySelector("p").innerText;
+    const message = textBox.querySelector("p").innerText;
 
-navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(message);
 
-alert("Message copied!");
+    alert("Message Copied!");
 
 });
 
 /* Auto Scroll */
 
-function scrollBottom(){
+const observer = new MutationObserver(() => {
 
-chatBox.scrollTop = chatBox.scrollHeight;
+    scrollBottom();
+
+});
+
+observer.observe(chatBox, {
+
+    childList: true
+
+});
+
+/* Auto Focus */
+
+window.addEventListener("load", () => {
+
+    userInput.focus();
+
+});
+
+/* Prevent Starting Space */
+
+userInput.addEventListener("input", () => {
+
+    userInput.value = userInput.value.replace(/^\s+/, "");
+
+});
+/* ==========================================
+   PakMate AI
+   script.js
+   Part 6 (Final)
+========================================== */
+
+/* App Information */
+
+const APP_NAME = "PakMate AI";
+const APP_VERSION = "1.0.0";
+
+console.log(APP_NAME + " " + APP_VERSION);
+
+/* Fade Effect */
+
+document.body.style.opacity = "0";
+
+window.addEventListener("load", () => {
+
+    document.body.style.transition = "opacity 0.4s ease";
+
+    document.body.style.opacity = "1";
+
+});
+
+/* Welcome Message */
+
+if (!localStorage.getItem("pakmate_chat")) {
+
+    setTimeout(() => {
+
+        addAIMessage("👋 Welcome to PakMate AI! Main aap ki madad ke liye tayyar hoon.");
+
+    }, 500);
 
 }
 
-const observer = new MutationObserver(scrollBottom);
+/* Console */
 
-observer.observe(chatBox,{
-childList:true
-});
+console.log("PakMate AI Loaded Successfully");
 
-/* Welcome */
-
-console.log("PakMate AI Started Successfully");
-
-/* Prevent Empty Spaces */
-
-userInput.addEventListener("input",()=>{
-
-userInput.value=userInput.value.replace(/^\s+/,"");
-
-});
-
-/* Small Fade Effect */
-
-document.body.style.opacity="0";
-
-window.addEventListener("load",()=>{
-
-document.body.style.transition="0.4s";
-
-document.body.style.opacity="1";
-
-});
-
-/* Version */
-
-const APP_NAME="PakMate AI";
-const VERSION="1.0.0";
-
-console.log(APP_NAME+" "+VERSION);
-
-/* End */
+/* End of Script */
