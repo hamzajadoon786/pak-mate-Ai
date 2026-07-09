@@ -617,4 +617,44 @@ header{
         width:100%;
     }
        }
+/* Mobile Responsive */
+@media (max-width: 768px) {
 
+.sidebar{
+    width:70px;
+    overflow:hidden;
+}
+
+.sidebar h1,
+.sidebar p,
+.sidebar ul li span{
+    display:none;
+}
+
+.main-content{
+    margin-left:70px;
+    width:calc(100% - 70px);
+}
+
+.chat-container{
+    width:100%;
+    padding:10px;
+}
+
+.message{
+    max-width:95%;
+}
+
+.input-area{
+    width:100%;
+    position:fixed;
+    bottom:10px;
+    left:70px;
+    right:10px;
+}
+
+input{
+    width:100%;
+}
+
+   }
