@@ -1,40 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pak Mate AI</title>
+
+<title>PakMate AI</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
+<div class="container">
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+<div class="logo-icon">
+<i class="fa-solid fa-robot"></i>
+</div>
+
+<h2>PakMate AI</h2>
+
+<p>Your Smart Assistant</p>
+
+</div>
+
+<button id="newChat">
+
+<i class="fa-solid fa-plus"></i>
+
+New Chat
+
+</button>
+
+<div class="menu">
+
+<div class="menu-item">
+
+<i class="fa-solid fa-clock-rotate-left"></i>
+
+Recent Chats
+
+</div>
+
+<div class="menu-item">
+
+<i class="fa-solid fa-star"></i>
+
+Favorites
+
+</div>
+
+<div class="menu-item">
+
+<i class="fa-solid fa-gear"></i>
+
+Settings
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+<!-- Header -->
+
 <header>
-🤖 Pak Mate AI
+
+<div>
+
+<h1>PakMate AI</h1>
+
+<p>Powered by Artificial Intelligence</p>
+
+</div>
+
+<div class="online">
+
+<span></span>
+
+Online
+
+</div>
+
 </header>
 
-<div class="chat-box" id="chat">
+<!-- Chat -->
 
-<div class="bot">
-👋 Assalam-o-Alaikum! Main Pak Mate AI hoon.
+<div id="chatBox">
+
+<div class="message ai">
+
+<div class="icon">
+
+<i class="fa-solid fa-robot"></i>
+
+</div>
+
+<div class="text">
+
+<h3>PakMate AI</h3>
+
+<p>
+
+👋 Assalam-o-Alaikum!
+
+Main PakMate AI hoon.
+
+Coding, Business, Education, Writing, Ideas aur Daily Life ke sawalon mein aap ki madad kar sakta hoon.
+
+Aaj aap kis cheez mein help chahte hain?
+
+</p>
+
+<span>Now</span>
+
 </div>
 
 </div>
+
+</div>
+
+<!-- Input -->
 
 <div class="input-area">
 
-<input
-type="text"
-id="message"
-placeholder="Apna message likhen...">
+<button id="voiceBtn">
 
-<button onclick="sendMessage()">➤</button>
-<button onclick="startVoice()">🎤</button>
+<i class="fa-solid fa-microphone"></i>
+
+</button>
+
+<input
+
+type="text"
+
+id="userInput"
+
+placeholder="Ask anything...">
+
+<button id="sendBtn">
+
+<i class="fa-solid fa-paper-plane"></i>
+
+</button>
+
+</div>
+
+</div>
+
 </div>
 
 <script src="script.js"></script>
 
 </body>
+
     </html>
 
