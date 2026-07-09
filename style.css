@@ -65,7 +65,10 @@ body{
     justify-content:space-between;
     padding:25px;
 }
-
+.main{
+    flex:1;
+    margin-left:270px;
+}
 /* Logo */
 
 .logo{
