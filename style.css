@@ -582,27 +582,30 @@ header{
 
 #menuBtn{
     display:none;
-    background:none;
-    border:none;
-    color:#fff;
-    font-size:24px;
-    cursor:pointer;
 }
 
 @media (max-width:768px){
 
     #menuBtn{
         display:block;
+        position:fixed;
+        top:15px;
+        left:15px;
+        z-index:1001;
+        background:none;
+        border:none;
+        color:#fff;
+        font-size:24px;
     }
 
     .sidebar{
         position:fixed;
-        left:-280px;
+        left:-270px;
         top:0;
-        width:280px;
-        height:100vh;
-        z-index:999;
+        width:270px;
+        height:100%;
         transition:0.3s;
+        z-index:1000;
     }
 
     .sidebar.active{
@@ -610,7 +613,8 @@ header{
     }
 
     .main{
+        margin-left:0;
         width:100%;
     }
-   }
+       }
 
