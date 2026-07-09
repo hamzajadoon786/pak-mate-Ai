@@ -351,3 +351,11 @@ if (!localStorage.getItem("pakmate_chat")) {
 console.log("PakMate AI Loaded Successfully");
 
 /* End of Script */
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.querySelector(".sidebar");
+
+if (menuBtn && sidebar) {
+    menuBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+    });
+}
