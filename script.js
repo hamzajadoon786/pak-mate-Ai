@@ -225,12 +225,45 @@ voiceBtn.innerHTML =
 /* =========================
    New Chat
 ========================= */
-
 newChat.addEventListener("click", () => {
 
-if(confirm("Start a new chat?")){
+    if (confirm("Start a new chat?")) {
 
-localStorage
+        localStorage.removeItem("pakmate_chat");
+
+        chatBox.innerHTML = `
+
+<div class="message ai">
+
+<div class="icon">
+<i class="fa-solid fa-robot"></i>
+</div>
+
+<div class="text">
+
+<h3>PakMate AI</h3>
+
+<p>
+👋 Assalam-o-Alaikum!
+
+Main PakMate AI hoon.
+
+Aaj main aap ki kis tarah madad kar sakta hoon?
+</p>
+
+<span>${getTime()}</span>
+
+</div>
+
+</div>
+
+`;
+
+        saveChat();
+
+    }
+
+});
 /* =====================================
    PakMate AI
    script.js - Part 4 (Final)
