@@ -1,7 +1,7 @@
 /* ==========================================
    PakMate AI - style.css
    Part 1
-   Reset + Layout + Sidebar
+   Reset + Variables
 ========================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -10,6 +10,22 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+:root{
+    --bg:#0f172a;
+    --sidebar:#111827;
+    --card:#1e293b;
+    --primary:#3b82f6;
+    --primary-hover:#2563eb;
+    --text:#ffffff;
+    --text-light:#cbd5e1;
+    --border:#334155;
+    --user:#2563eb;
+    --bot:#1f2937;
+    --radius:14px;
+    --transition:.3s ease;
 }
 
 html{
@@ -17,32 +33,14 @@ html{
 }
 
 body{
-    font-family:'Poppins',sans-serif;
-    background:#0b0b0f;
-    color:#fff;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
     overflow:hidden;
-}
-
-/* Scrollbar */
-
-::-webkit-scrollbar{
-    width:8px;
-}
-
-::-webkit-scrollbar-track{
-    background:#111;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#444;
-    border-radius:20px;
-}
-
-::-webkit-scrollbar-thumb:hover{
-    background:#666;
-}
-
-/* Layout */
+       }
+/* ==========================================
+   Sidebar
+========================================== */
 
 .container{
     display:flex;
@@ -50,628 +48,202 @@ body{
     height:100vh;
 }
 
-/* Sidebar */
-
 .sidebar{
-    width:270px;
-    background:#121212;
-    border-right:1px solid rgba(255,255,255,.08);
+    width:260px;
+    background:var(--sidebar);
+    border-right:1px solid var(--border);
     display:flex;
     flex-direction:column;
-    padding:25px;
-    flex-shrink:0;
+    padding:20px;
+    transition:var(--transition);
 }
-
-/* Logo */
 
 .logo{
+    font-size:24px;
+    font-weight:700;
+    color:var(--primary);
+    margin-bottom:30px;
     text-align:center;
 }
-
-.logo-icon{
-    width:80px;
-    height:80px;
-    margin:auto;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(135deg,#00d4ff,#0066ff);
-    font-size:34px;
-    color:#fff;
-    box-shadow:0 0 25px rgba(0,212,255,.35);
-}
-
-.logo h2{
-    margin-top:18px;
-    font-size:28px;
-    font-weight:700;
-}
-
-.logo p{
-    margin-top:6px;
-    color:#9e9e9e;
-    font-size:14px;
-}
-
-/* New Chat */
-
-#newChat{
-    margin-top:35px;
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:14px;
-    background:linear-gradient(135deg,#00bfff,#0066ff);
-    color:#fff;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
-}
-
-#newChat:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 30px rgba(0,191,255,.35);
-}
-
-#newChat i{
-    margin-right:10px;
-}
-
-/* Menu */
 
 .menu{
-    margin-top:35px;
-}
-
-.menu-item{
     display:flex;
-    align-items:center;
-    gap:14px;
-    padding:15px;
-    margin-bottom:12px;
-    border-radius:12px;
+    flex-direction:column;
+    gap:12px;
+}
+
+.menu button{
+    border:none;
+    background:transparent;
+    color:var(--text-light);
+    padding:12px;
+    border-radius:10px;
     cursor:pointer;
-    color:#d8d8d8;
-    transition:.3s;
+    text-align:left;
+    transition:var(--transition);
 }
 
-.menu-item i{
-    width:22px;
-    text-align:center;
-}
-
-.menu-item:hover{
-    background:#1d1d1d;
-    color:#00d4ff;
-}
-
-/* Sidebar Footer */
-
-.sidebar::after{
-    content:"PakMate AI v1.0";
-    margin-top:auto;
-    text-align:center;
-    color:#666;
-    font-size:13px;
-    padding-top:20px;
-   }
+.menu button:hover{
+    background:var(--primary);
+    color:#fff;
+       }
 /* ==========================================
-   PakMate AI - style.css
-   Part 2
-   Main Area + Header + Chat
+   Main Chat Area
 ========================================== */
-
-/* Main */
 
 .main{
     flex:1;
     display:flex;
     flex-direction:column;
-    background:#0b0b0f;
-    overflow:hidden;
+    background:var(--bg);
 }
 
-/* Header */
-
-header{
+.header{
+    height:70px;
     display:flex;
-    justify-content:space-between;
     align-items:center;
-    padding:20px 30px;
-    background:#111;
-    border-bottom:1px solid rgba(255,255,255,.08);
+    justify-content:space-between;
+    padding:0 20px;
+    border-bottom:1px solid var(--border);
+    background:var(--card);
 }
 
-header h1{
-    font-size:28px;
-    font-weight:700;
+.header h2{
+    font-size:22px;
+    font-weight:600;
+    color:var(--text);
+}
+
+.chat-box{
+    flex:1;
+    overflow-y:auto;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.chat-box::-webkit-scrollbar{
+    width:6px;
+}
+
+.chat-box::-webkit-scrollbar-thumb{
+    background:var(--primary);
+    border-radius:20px;
+       }
+/* ==========================================
+   Messages
+========================================== */
+
+.message{
+    max-width:80%;
+    padding:14px 18px;
+    border-radius:var(--radius);
+    font-size:15px;
+    line-height:1.6;
+    word-wrap:break-word;
+    animation:fadeIn .3s ease;
+}
+
+.user-message{
+    align-self:flex-end;
+    background:var(--user);
     color:#fff;
+    border-bottom-right-radius:5px;
 }
 
-header p{
-    margin-top:4px;
-    color:#9e9e9e;
-    font-size:14px;
+.bot-message{
+    align-self:flex-start;
+    background:var(--bot);
+    color:var(--text);
+    border-bottom-left-radius:5px;
 }
 
-.online{
+.message img{
+    max-width:100%;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.message pre{
+    overflow-x:auto;
+    padding:12px;
+    border-radius:10px;
+    background:#0f172a;
+}
+
+.message code{
+    font-family:monospace;
+   }
+/* ==========================================
+   Input Area
+========================================== */
+
+.input-area{
     display:flex;
     align-items:center;
     gap:10px;
-    font-size:15px;
-    color:#ddd;
+    padding:15px;
+    background:var(--card);
+    border-top:1px solid var(--border);
 }
 
-.online span{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    background:#00ff66;
-    box-shadow:0 0 12px #00ff66;
-}
-
-/* Chat Box */
-
-#chatBox{
+.input-area input{
     flex:1;
-    overflow-y:auto;
-    padding:30px;
-    display:flex;
-    flex-direction:column;
-    gap:20px;
+    padding:14px 16px;
+    border:1px solid var(--border);
+    border-radius:12px;
+    outline:none;
+    background:#0f172a;
+    color:var(--text);
+    font-size:15px;
+    transition:var(--transition);
 }
 
-/* Message */
-
-.message{
-    display:flex;
-    gap:15px;
-    animation:fadeIn .35s ease;
+.input-area input:focus{
+    border-color:var(--primary);
 }
 
-/* AI Message */
-
-.message.ai{
-    align-self:flex-start;
-}
-
-.message.ai .icon{
+.input-area button{
     width:50px;
-    height:50px;
-    border-radius:50%;
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(135deg,#00d4ff,#0066ff);
-    color:#fff;
-    font-size:20px;
-}
-
-.message.ai .text{
-    max-width:75%;
-    background:#171717;
-    padding:18px;
-    border-radius:18px;
-    border-top-left-radius:6px;
-    box-shadow:0 8px 20px rgba(0,0,0,.25);
-}
-
-.message.ai h3{
-    margin-bottom:8px;
-    font-size:18px;
-    color:#00d4ff;
-}
-
-.message.ai p{
-    color:#e5e5e5;
-    line-height:1.7;
-    font-size:15px;
-}
-
-.message.ai span{
-    display:block;
-    margin-top:10px;
-    font-size:12px;
-    color:#888;
-}
-
-/* User Message */
-
-.message.user{
-    align-self:flex-end;
-    flex-direction:row-reverse;
-}
-
-.message.user .text{
-    max-width:75%;
-    background:linear-gradient(135deg,#00bfff,#0066ff);
-    padding:18px;
-    border-radius:18px;
-    border-top-right-radius:6px;
-    color:#fff;
-}
-
-.message.user p{
-    line-height:1.7;
-    font-size:15px;
-}
-
-.message.user span{
-    display:block;
-    margin-top:10px;
-    font-size:12px;
-    opacity:.8;
-}
-
-/* Animation */
+    height:50
+   /* ==========================================
+   Animations + Responsive
+========================================== */
 
 @keyframes fadeIn{
-
     from{
         opacity:0;
         transform:translateY(10px);
     }
-
     to{
         opacity:1;
         transform:translateY(0);
     }
-
-   }
-/* ==========================================
-   PakMate AI - style.css
-   Part 3
-   Input Area + Buttons + Welcome Card
-========================================== */
-
-/* Input Area */
-
-.input-area{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    padding:18px 25px;
-    background:#111;
-    border-top:1px solid rgba(255,255,255,.08);
 }
-
-/* Text Input */
-
-#userInput{
-    flex:1;
-    height:58px;
-    padding:0 22px;
-    border:none;
-    outline:none;
-    border-radius:50px;
-    background:#1b1b1b;
-    color:#fff;
-    font-size:16px;
-    border:2px solid transparent;
-    transition:.3s;
-}
-
-#userInput::placeholder{
-    color:#8c8c8c;
-}
-
-#userInput:focus{
-    border-color:#00bfff;
-    box-shadow:0 0 15px rgba(0,191,255,.25);
-}
-
-/* Buttons */
-
-#voiceBtn,
-#sendBtn{
-    width:58px;
-    height:58px;
-    border:none;
-    border-radius:50%;
-    cursor:pointer;
-    color:#fff;
-    font-size:20px;
-    transition:.3s;
-}
-
-/* Voice */
-
-#voiceBtn{
-    background:#202020;
-}
-
-#voiceBtn:hover{
-    background:#ff3b3b;
-    transform:scale(1.08);
-}
-
-/* Send */
-
-#sendBtn{
-    background:linear-gradient(135deg,#00c6ff,#0072ff);
-}
-
-#sendBtn:hover{
-    transform:scale(1.08);
-    box-shadow:0 0 20px rgba(0,191,255,.4);
-}
-
-/* Welcome Card */
-
-.welcome-card{
-    width:100%;
-    max-width:720px;
-    margin:auto;
-    padding:45px;
-    text-align:center;
-    background:#171717;
-    border-radius:20px;
-    border:1px solid rgba(255,255,255,.08);
-    box-shadow:0 15px 35px rgba(0,0,0,.30);
-}
-
-.welcome-card h2{
-    font-size:34px;
-    margin-bottom:15px;
-    color:#fff;
-}
-
-.welcome-card p{
-    color:#bdbdbd;
-    font-size:16px;
-    line-height:1.8;
-}
-
-/* Global */
-
-button{
-    outline:none;
-}
-
-button:active{
-    transform:scale(.96);
-}
-
-::selection{
-    background:#00bfff;
-    color:#fff;
-}
-
-*{
-    transition:.25s ease;
-}
-
-.message .text,
-.sidebar,
-header,
-.input-area{
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(
-       /* ==========================================
-   PakMate AI - style.css
-   Part 4
-   Mobile Responsive + Final
-========================================== */
-
-/* Menu Button */
-
-#menuBtn{
-    display:none;
-    background:none;
-    border:none;
-    color:#fff;
-    font-size:24px;
-    cursor:pointer;
-}
-
-/* Tablet */
-
-@media (max-width:900px){
-
-    .sidebar{
-        width:80px;
-        padding:15px;
-    }
-
-    .logo h2,
-    .logo p,
-    .menu-item{
-        display:none;
-    }
-
-    .logo-icon{
-        width:55px;
-        height:55px;
-        font-size:24px;
-    }
-
-    #newChat{
-        font-size:0;
-        padding:14px;
-    }
-
-    #newChat i{
-        margin:0;
-        font-size:18px;
-    }
-
-    header{
-        padding:18px;
-    }
-
-    header h1{
-        font-size:22px;
-    }
-
-    #chatBox{
-        padding:20px;
-    }
-
-    .message.ai .text,
-    .message.user .text{
-        max-width:90%;
-    }
-
-}
-
-/* Mobile */
 
 @media (max-width:768px){
 
-    body{
-        overflow:hidden;
-    }
-
-    .container{
-        display:block;
-    }
-
-    #menuBtn{
-        display:block;
-    }
-
     .sidebar{
-        position:fixed;
-        top:0;
-        left:-270px;
-        width:270px;
-        height:100%;
-        z-index:1000;
-        transition:.3s;
+        width:70px;
+        padding:15px 10px;
     }
 
-    .sidebar.active{
-        left:0;
+    .logo{
+        font-size:18px;
+        margin-bottom:20px;
+    }
+
+    .menu button{
+        text-align:center;
+        padding:10px;
+        font-size:14px;
     }
 
     .main{
-        width:100%;
-        height:100vh;
+        width:calc(100% - 70px);
     }
 
-    header{
-        padding:15px;
-    }
-
-    header h1{
-        font-size:22px;
-    }
-
-    header p{
-        font-size:13px;
-    }
-
-    .online{
-        font-size:13px;
-    }
-
-    #chatBox{
-        padding:15px;
-        padding-bottom:95px;
-    }
-
-    .input-area{
-        position:fixed;
-        left:0;
-        right:0;
-        bottom:0;
-        padding:10px;
-        z-index:999;
-    }
-
-    #userInput{
-        height:50px;
-        font-size:15px;
-    }
-
-    #voiceBtn,
-    #sendBtn{
-        width:50px;
-        height:50px;
-        font-size:18px;
-    }
-
-}
-
-/* Small Mobile */
-
-@media (max-width:480px){
-
-    .message.ai .text,
-    .message.user .text{
-        max-width:100%;
-        font-size:14px;
-    }
-
-    .logo-icon{
-        width:50px;
-        height:50px;
-        font-size:22px;
-    }
-
-    header h1{
-        font-size:20px;
-    }
-
-    .welcome-card{
-        padding:25px;
-    }
-
-    .welcome-card h2{
-        font-size:26px;
-    }
-
-    .welcome-card p{
-        font-size:14px;
-    }
-
-}
-
-/* End */
-/* Mobile Responsive */
-@media (max-width: 768px) {
-
-.sidebar {
-    position: fixed;
-    left: -260px;
-    width: 260px;
-    height: 100%;
-    z-index: 1000;
-    transition: 0.3s;
-}
-
-.sidebar.active {
-    left: 0;
-}
-
-.chat-container {
-    margin-left: 0;
-    width: 100%;
-    padding: 10px;
-}
-
-.header {
-    width: 100%;
-    left: 0;
-}
-
-.message {
-    max-width: 95%;
-}
-
-.input-area {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-    width: auto;
-}
-
-.input-area input {
-    width: 100%;
-}
-
-   }
+    .message
+   
+        
